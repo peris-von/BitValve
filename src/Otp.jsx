@@ -126,7 +126,7 @@ function OTP({ email, onVerified }) {
           Enter the 6-digit verification code sent to your email.
         </p>
 
-        <div className="flex justify-between mt-8 gap-2" onPaste={handlePaste}>
+        <div className="flex justify-center mt-8 gap-1" onPaste={handlePaste}>
           {otp.map((digit, index) => (
             <input
               key={index}
