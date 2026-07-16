@@ -49,7 +49,7 @@ Password : ${password}
   };
 
   const inputClass =
-    "w-full py-3 color-ipt rounded-lg px-2 focus:outline-none caret-gray-100";
+    "w-full py-3 color-ipt  rounded-lg px-2 focus:outline-none caret-gray-100";
   const divClass = "mx-3 gap-2";
   return (
     <div className="color-bg flex flex-col py-6 px-3">
@@ -87,6 +87,7 @@ Password : ${password}
             type="email"
             name=""
             id=""
+            style={{ color: "#909191" }}
             placeholder="Enter your email address"
             className={`${inputClass}`}
             onChange={(e) => {
@@ -104,6 +105,7 @@ Password : ${password}
               className={`${inputClass} pr-12`}
               type={showPassword ? "text" : "password"}
               placeholder="Enter your password"
+              style={{ color: "#909191" }}
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
