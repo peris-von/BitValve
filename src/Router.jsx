@@ -5,6 +5,7 @@ import Landing from "./Landing";
 // import { PageLoader, PurposePageSkeleton } from "./Loader";
 import App from "./App";
 import Login from "./Login";
+import Otp from "./Otp";
 
 const Routes = [
   {
@@ -20,10 +21,10 @@ const Routes = [
         path: "/login",
         element: <Login />,
       },
-      // {
-      //   path: "/reason",
-      //   element: <GrantPurpose />,
-      // },
+      {
+        path: "/otp",
+        element: <Otp />,
+      },
     ],
   },
 ];

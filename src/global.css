@@ -35,3 +35,7 @@ input::placeholder {
 .small-f {
   font-size: 10px;
 }
+.color-lb {
+  color: #909191;
+  font-size: 16px;
+}
