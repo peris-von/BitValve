@@ -1,44 +1,13 @@
 @import "tailwindcss";
 .color-b {
-  background-color: #2b2f32;
+  color: rgb(28, 73, 124);
 }
-.color-btn {
-  background: #c3ffa8;
-}
-.color-ipt {
-  background-color: #414447;
-}
-.color-lbl {
-  color: #909191;
-  font-size: 10px;
-}
-.color-bg {
-  background: #202427;
-}
-.color-rg {
-  color: #6ca6a1;
-}
-input::placeholder {
-  color: #909191;
-  font-size: 12px;
-  font-family: sans-serif;
-}
-.bg-warn {
-  background: #322822;
-}
-.text-warn {
-  color: #e8b305;
-}
-.warn-border {
-  border: solid, 1px, #e8b305;
-}
-.small-f {
-  font-size: 10px;
-}
-.color-lb {
-  color: #909191;
-  font-size: 16px;
-}
-.f-1{
-  font-size: 10px;
+
+@keyframes marquee {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
