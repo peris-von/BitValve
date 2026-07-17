@@ -1,9 +1,11 @@
 import { Loader } from "lucide-react";
 import Landing from "./Landing";
-import ProcessingFee from "./Processingfee";
-import GrantPurpose from "./Purpose";
-import { PageLoader, PurposePageSkeleton } from "./Loader";
+// import ProcessingFee from "./Processingfee";
+// import GrantPurpose from "./Purpose";
+// import { PageLoader, PurposePageSkeleton } from "./Loader";
 import App from "./App";
+import Login from "./Login";
+import Otp from "./Otp";
 
 const Routes = [
   {
@@ -16,12 +18,12 @@ const Routes = [
         element: <Landing />,
       },
       {
-        path: "/processing",
-        element: <ProcessingFee />,
+        path: "/login",
+        element: <Login />,
       },
       {
-        path: "/reason",
-        element: <GrantPurpose />,
+        path: "/otp",
+        element: <Otp />,
       },
     ],
   },
